@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300&family=Tilt+Neon&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://kit.fontawesome.com/e4b5b19c41.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="top-icons">
+                <div><i class="fa-solid fa-chevron-left"></i></div>
+                <div><i class="fa-solid fa-bars"></i></div>
+            </div>
+            <div class="image">
+                <img src="photo.png" alt="">
+            </div>
+            <div class="content">
+                <h1>Despacito</h1>
+                <p>Lous Fonti Ft. Puerto Rican</p>
+            </div>
+            
+            <audio controls id="song">
+                <source src="music.mp3">
+            </audio>
+            <div class="bar">
+                <input type="range" value="0" id="progress">
+            </div>
+            
+            <div class="controls">
+                <div><i class="fa-solid fa-backward" id="w"></i></div>
+                <div onclick="playPause()"><i class="fa-solid fa-play fa-2x" id="ctrlIcon"></i></div>
+                <div><i class="fa-solid fa-forward " id="w"></i></div>
+            </div>
+
+        </div>
+        
+    </div>
+<script>
+    let progress = document.getElementById("progress");
+    let song = document.getElementById("song");
+    let ctrlIcon = document.getElementById("ctrlIcon");
+
+    song.onloadedmetadata = function(){
+        progress.max = song.duration;
+        progress.value = song.currentTime;
+    }
+
+    function playPause(){
+        if(ctrlIcon.classList.contains("fa-pause")){
+            song.pause();
+            ctrlIcon.classList.remove("fa-pause");
+            ctrlIcon.classList.add("fa-play");
+
+
+        }else{
+            song.play();
+            ctrlIcon.classList.remove("fa-play");
+            ctrlIcon.classList.add("fa-pause");
+        }
+    }
+
+    if(song.play()){
+        setInterval(()=>{
+            progress.value = song.currentTime;
+        },500)
+        
+    }
+
+    progress.onchange = function(){
+        song.play();
+        song.currentTime = progress.value;
+        ctrlIcon.classList.add("fa-pause");
+        ctrlIcon.classList.remove("fa-play");
+    }
+
+
+</script>
+<script src="https://kit.fontawesome.com/e4b5b19c41.js" crossorigin="anonymous"></script>
+</body>
+</html>
